@@ -16,17 +16,43 @@ describe("Home Page", () => {
     const formHeaders = await LoginPage.navbarElement;
     expect(formHeaders.length).toEqual(3);
     formHeaders[0].scrollIntoView();
+    // expect(await formHeaders[0].getText()).toEqual("Home");
+    // formHeaders[1].scrollIntoView();
+    // expect(await formHeaders[1].getText()).toEqual("My Projects");
+    // formHeaders[2].scrollIntoView();
+    // expect(await formHeaders[2].getText()).toEqual("Download CV");
+  });
+
+  it("Navbar Components - Home", async () => {
+    const formHeaders = await LoginPage.navbarElement;
     expect(await formHeaders[0].getText()).toEqual("Home");
-    formHeaders[1].scrollIntoView();
+    await formHeaders[0].click();
+    expect(await browser.getUrl()).toEqual("https://www.alexcuadra.dev/");
+  });
+
+  it("Navbar Components - My Projects", async () => {
+    const formHeaders = await LoginPage.navbarElement;
     expect(await formHeaders[1].getText()).toEqual("My Projects");
-    formHeaders[2].scrollIntoView();
+    await formHeaders[1].click();
+    expect(await browser.getUrl()).toEqual("https://www.alexcuadra.dev/all-projects/");
+  });
+
+  it("Navbar Components - Download CV", async () => {
+    const formHeaders = await LoginPage.navbarElement;
     expect(await formHeaders[2].getText()).toEqual("Download CV");
+    await formHeaders[2].click();
+    const windowHandles = await browser.getWindowHandles();
+    await browser.switchToWindow(windowHandles[1]);
+    expect(await browser.getUrl()).toEqual("https://dev-portfolio-alex.pantheonsite.io/wp-content/uploads/2021/12/Portfolio-AlexCuadraResume.pdf");
+    await browser.closeWindow();
+    await browser.switchToWindow(windowHandles[0]);
   });
 
   it("Validate Title & Subtitle", async () => {
+    const formHeaders = await LoginPage.navbarElement;
+    await formHeaders[0].click();
     expect(await LoginPage.title.getText()).toEqual("Hi ! I'm Alex");
     expect(await LoginPage.subTitle.getText()).toEqual("Frontend developer focused on take awesome designs to the Web.");
-    //  Alter text
   });
 
   it("Validate Check my work - Github", async () => {
@@ -38,6 +64,7 @@ describe("Home Page", () => {
     const windowHandles = await browser.getWindowHandles();
     await browser.switchToWindow(windowHandles[1]);
     expect(await browser.getUrl()).toEqual("https://github.com/alexcu21");
+    await browser.closeWindow();
     await browser.switchToWindow(windowHandles[0]);
   });
 
@@ -47,8 +74,9 @@ describe("Home Page", () => {
     await formHeaders[1].click();
 
     const windowHandles = await browser.getWindowHandles();
-    await browser.switchToWindow(windowHandles[2]);
+    await browser.switchToWindow(windowHandles[1]);
     expect(await browser.getUrl()).toEqual("https://www.linkedin.com/in/alex-cuadra/");
+    await browser.closeWindow();
     await browser.switchToWindow(windowHandles[0]);
   });
 
@@ -58,55 +86,29 @@ describe("Home Page", () => {
 
     await formHeaders[2].click();
     const windowHandles = await browser.getWindowHandles();
-    await browser.switchToWindow(windowHandles[3]);
+    await browser.switchToWindow(windowHandles[1]);
     expect(await browser.getUrl()).toEqual("https://profiles.wordpress.org/alexcu21/profile/");
+    await browser.closeWindow();
     await browser.switchToWindow(windowHandles[0]);
   });
 
-  // it("Validate list contact elements", async () => {
-  //   const formHeaders = await LoginPage.navbarContact;
-  //   expect(formHeaders.length).toEqual(3);
-  //   // formHeaders[0].scrollIntoView();
-  //   expect(await formHeaders[0].getText()).toEqual("Check my work");
-  //   // formHeaders[1].scrollIntoView();
-  //   expect(await formHeaders[1].getText()).toEqual("Let's connect");
-  //   // formHeaders[2].scrollIntoView();
-  //   expect(await formHeaders[2].getText()).toEqual("Contribute to community");
-  // });
+  it("Validate list latest Projects", async () => {
+    const cardProject = await LoginPage.latestProjectList.$$(" div.css-1lda7xt.eqzxucj5 > article");
+    expect(cardProject.length).toEqual(3);
 
-  // it("Validate list contact elements redirection ", async () => {
-  //   const formHeaders = await LoginPage.navbarContact;
-  //   await formHeaders[0].click();
-  //   await browser.pause(2000);
-  //   await formHeaders[1].click();
-  //   await browser.pause(2000);
-  //   await formHeaders[2].click();
-  //   await browser.pause(2000);
+    console.log("*****");
+    console.log(LoginPage.latestProjectListOptions[0].getText());
+    expect(await LoginPage.latestProjectListOptions.isDisplayed()).toBeTruthy();
 
-  //   //dividirlo 1. por 1. validar texto. click compare browser get url equal
-  // });
+    await loginPage.firstProject.click();
+    await loginPage.firstProjectCode.click();
 
-  // it("Validate list latest Projects", async () => {
-  //   const cardProject = await LoginPage.latestProjectList.$$(" div.css-1lda7xt.eqzxucj5 > article");
-  //   expect(cardProject.length).toEqual(3);
+    await loginPage.secondProject.click();
+    await loginPage.secondProjectCode.click();
 
-  //   console.log("*****");
-  //   console.log(LoginPage.latestProjectListOptions[0].getText());
-  //   expect(await LoginPage.latestProjectListOptions.isDisplayed()).toBeTruthy();
-
-  //   await loginPage.firstProject.click();
-  //   await browser.pause(5000);
-  //   await loginPage.firstProjectCode.click();
-  //   await browser.pause(5000);
-  //   await loginPage.secondProject.click();
-  //   await browser.pause(5000);
-  //   await loginPage.secondProjectCode.click();
-  //   await browser.pause(5000);
-  //   await loginPage.thirdProject.click();
-  //   await browser.pause(5000);
-  //   await loginPage.thirdProjectCode.click();
-  //   await browser.pause(5000);
-  // });
+    await loginPage.thirdProject.click();
+    await loginPage.thirdProjectCode.click();
+  });
 
   // it("Posts (from others) You Must Read", async () => {
   //   const cardProject = await LoginPage.latestProjectList.$$(" div.css-1lda7xt.eqzxucj5 > article");
