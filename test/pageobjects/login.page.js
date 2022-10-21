@@ -47,7 +47,9 @@ class LoginPage extends Page {
   get thirdProjectCode() {
     return $('//*[@id="root"]/main/div[1]/article[3]/div/div[2]/a[2]');
   }
-
+  get btnSearchDrinks() {
+    return $('//*[@id="root"]/div/div[1]/form/div/div[3]/input');
+  }
   open() {
     return super.open("");
   }

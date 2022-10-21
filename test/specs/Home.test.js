@@ -1,7 +1,6 @@
 const { Browser } = require("selenium-webdriver");
-const loginPage = require("../pageobjects/login.page");
 const LoginPage = require("../pageobjects/login.page");
-const SecurePage = require("../pageobjects/secure.page");
+// const LoginPage = require("../pageobjects/login.page");
 
 describe("Home Page", () => {
   before(async () => {
@@ -62,17 +61,17 @@ describe("Home Page", () => {
     await browser.switchToWindow(windowHandles[0]);
   });
 
-  it("Validate Let's connect - Linkedin", async () => {
-    const formHeaders = await LoginPage.navbarContact;
-    expect(await formHeaders[1].getText()).toEqual("Let's connect");
-    await formHeaders[1].click();
+  // it("Validate Let's connect - Linkedin", async () => {
+  //   const formHeaders = await LoginPage.navbarContact;
+  //   expect(await formHeaders[1].getText()).toEqual("Let's connect");
+  //   await formHeaders[1].click();
 
-    const windowHandles = await browser.getWindowHandles();
-    await browser.switchToWindow(windowHandles[1]);
-    expect(await browser.getUrl()).toEqual("https://www.linkedin.com/in/alex-cuadra/");
-    await browser.closeWindow();
-    await browser.switchToWindow(windowHandles[0]);
-  });
+  //   const windowHandles = await browser.getWindowHandles();
+  //   await browser.switchToWindow(windowHandles[1]);
+  //   expect(await browser.getUrl()).toEqual("https://www.linkedin.com/in/alex-cuadra/");
+  //   await browser.closeWindow();
+  //   await browser.switchToWindow(windowHandles[0]);
+  // });
 
   it("Contribute to community - Wp Article", async () => {
     const formHeaders = await LoginPage.navbarContact;
@@ -94,14 +93,14 @@ describe("Home Page", () => {
     console.log(LoginPage.latestProjectListOptions[0].getText());
     expect(await LoginPage.latestProjectListOptions.isDisplayed()).toBeTruthy();
 
-    await loginPage.firstProject.click();
-    await loginPage.firstProjectCode.click();
+    await LoginPage.firstProject.click();
+    await LoginPage.firstProjectCode.click();
 
-    await loginPage.secondProject.click();
-    await loginPage.secondProjectCode.click();
+    await LoginPage.secondProject.click();
+    await LoginPage.secondProjectCode.click();
 
-    await loginPage.thirdProject.click();
-    await loginPage.thirdProjectCode.click();
+    await LoginPage.thirdProject.click();
+    await LoginPage.thirdProjectCode.click();
   });
 
   it("Posts (from others) You Must Read", async () => {
