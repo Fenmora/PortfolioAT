@@ -19,6 +19,10 @@ class LoginPage extends Page {
   get latestProjectList() {
     return $("#root > main");
   }
+  get AllProjectPage() {
+    return $$(" #root > main > section > div > a");
+  }
+
   get latestProjectListOptions() {
     return $("#root > main > div.css-1lda7xt.eqzxucj5 > article:nth-child(2) > div > div.css-14otwhr.eqzxucj1 > a:nth-child(1)");
   }

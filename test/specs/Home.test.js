@@ -15,12 +15,6 @@ describe("Home Page", () => {
   it("Validate list elements in Navbar Components", async () => {
     const formHeaders = await LoginPage.navbarElement;
     expect(formHeaders.length).toEqual(3);
-    formHeaders[0].scrollIntoView();
-    // expect(await formHeaders[0].getText()).toEqual("Home");
-    // formHeaders[1].scrollIntoView();
-    // expect(await formHeaders[1].getText()).toEqual("My Projects");
-    // formHeaders[2].scrollIntoView();
-    // expect(await formHeaders[2].getText()).toEqual("Download CV");
   });
 
   it("Navbar Components - Home", async () => {
@@ -92,7 +86,7 @@ describe("Home Page", () => {
     await browser.switchToWindow(windowHandles[0]);
   });
 
-  it("Validate list latest Projects", async () => {
+  it("Validate latest Projects", async () => {
     const cardProject = await LoginPage.latestProjectList.$$(" div.css-1lda7xt.eqzxucj5 > article");
     expect(cardProject.length).toEqual(3);
 
@@ -110,27 +104,11 @@ describe("Home Page", () => {
     await loginPage.thirdProjectCode.click();
   });
 
-  // it("Posts (from others) You Must Read", async () => {
-  //   const cardProject = await LoginPage.latestProjectList.$$(" div.css-1lda7xt.eqzxucj5 > article");
-  //   expect(cardProject.length).toEqual(3);
-
-  //   console.log("*****");
-  //   console.log(LoginPage.latestProjectListOptions[0].getText());
-  //   expect(await LoginPage.latestProjectListOptions.isDisplayed()).toBeTruthy();
-
-  //   await loginPage.firstProject.click();
-  //   await browser.pause(5000);
-  //   await loginPage.firstProjectCode.click();
-  //   await browser.pause(5000);
-  //   await loginPage.secondProject.click();
-  //   await browser.pause(5000);
-  //   await loginPage.secondProjectCode.click();
-  //   await browser.pause(5000);
-  //   await loginPage.thirdProject.click();
-  //   await browser.pause(5000);
-  //   await loginPage.thirdProjectCode.click();
-  //   await browser.pause(5000);
-  // });
+  it("Posts (from others) You Must Read", async () => {
+    const cardProject = await LoginPage.latestProjectList.$$("div.css-1lz1p8c.elxzs3s2 > div > div");
+    expect(cardProject.length).toEqual(6);
+    expect(await LoginPage.latestProjectListOptions.isDisplayed()).toBeTruthy();
+  });
 
   //
 });
